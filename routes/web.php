@@ -17,8 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Untuk Developer Login
+Route::group(['middleware' =>['auth']], function() {
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+});
+
+// Untuk Administrator Login
+Route::group(['middleware' =>['auth','role:administrator']], function() {
+    Route::get('/dashboard/admins', [App\Http\Controllers\DashboardController::class, 'index_admins'])->name('dashboard.index_admins');
+});
+
+// Untuk User Login
+Route::group(['middleware' =>['auth', 'role:user']], function() {
+    Route::get('/dashboard/users', [App\Http\Controllers\DashboardController::class, 'index_users'])->name('dashboard.index_users');
+});
 
 require __DIR__.'/auth.php';
