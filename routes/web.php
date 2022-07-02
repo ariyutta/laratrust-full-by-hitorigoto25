@@ -24,12 +24,12 @@ Route::group(['middleware' =>['auth']], function() {
 
 // Untuk Administrator Login
 Route::group(['middleware' =>['auth','role:administrator']], function() {
-    Route::get('/dashboard/admins', [App\Http\Controllers\DashboardController::class, 'index_admins'])->name('dashboard.index_admins');
+    Route::get('/dashboard/admins', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 });
 
 // Untuk User Login
 Route::group(['middleware' =>['auth', 'role:user']], function() {
-    Route::get('/dashboard/users', [App\Http\Controllers\DashboardController::class, 'index_users'])->name('dashboard.index_users');
+    Route::get('/dashboard/users', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__.'/auth.php';
