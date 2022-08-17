@@ -18,7 +18,7 @@ class DashboardController extends Controller
             return view('admins.index');
         }
         else if(Auth::user()->hasRole('developer')) {
-
+            
             return view('developers.index');
         }
     }
